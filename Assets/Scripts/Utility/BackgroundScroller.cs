@@ -8,27 +8,11 @@ public class BackgroundScroller : MonoBehaviour
     public Camera mainCamera;
     public bool toggleDebug;
 
-    private float topOfScroller;
-    private float bottomOfScroller;
+    private float scrollWidth;
     // Start is called before the first frame update
     void Start()
     {
-        topOfScroller = transform.position.y;
-        bottomOfScroller = transform.position.y;
-        Bounds bnds;
-        float buffMin, buffMax;
-        foreach (Transform child in transform)
-        {
-            bnds = child.gameObject.GetComponent<SpriteRenderer>().sprite.bounds;
-            buffMax = child.transform.position.y + bnds.max.y;
-            buffMin = child.transform.position.y + bnds.min.y;
-            if (buffMax > topOfScroller)
-                topOfScroller = buffMax;
-            if (buffMin < bottomOfScroller)
-                bottomOfScroller = buffMin;
-        }
-        topOfScroller -= transform.position.y;
-        bottomOfScroller -= transform.position.y;
+        scrollWidth = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite.bounds.extents.y * 2;
     }
 
     // Update is called once per frame
@@ -39,14 +23,8 @@ public class BackgroundScroller : MonoBehaviour
 
     private void Scroll()
     {
-        if (transform.position.y + topOfScroller < mainCamera.transform.position.y - mainCamera.orthographicSize)
-        {
-            Debug.Log(transform.position + " " + topOfScroller * 4);
-            transform.position += transform.up * topOfScroller * 4;
-        }
-        if (transform.position.y + bottomOfScroller < mainCamera.transform.position.y + mainCamera.orthographicSize)
-        {
-        }
+        if (transform.position.y + scrollWidth < mainCamera.transform.position.y - mainCamera.orthographicSize)
+            transform.position += transform.up * scrollWidth * 4;
         transform.position -= transform.up * scrollingSpeed * Time.deltaTime;
     }
 }
