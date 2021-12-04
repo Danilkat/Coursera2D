@@ -317,6 +317,7 @@ public class Enemy : MonoBehaviour
     /// <returns>Vector3: The desired scroll direction</returns>
     private Vector3 GetScrollDirection()
     {
+        return scrollDirection;
         Camera camera = Camera.main;
         if (camera != null)
         {
@@ -327,6 +328,5 @@ public class Enemy : MonoBehaviour
                 return scrollDirection * -1;
             }
         }
-        return scrollDirection;
     }
 }
