@@ -125,6 +125,10 @@ MonoBehaviour:
   followRange: 100
   guns:
   - {fileID: 8282131553695226666}
+  chance: 0.2
+  dropAmount: 1
+  powerUps:
+  - {fileID: 867211631290313947, guid: a13084fdfcd68514bb22634e67a27324, type: 3}
   shootMode: 1
   movementMode: 2
   scrollDirection: {x: 0, y: -1, z: 0}
@@ -254,4 +258,5 @@ MonoBehaviour:
   isPlayerControlled: 0
   fireRate: 3
   projectileSpread: 1
+  firesAmount: 0
   fireEffect: {fileID: 0}

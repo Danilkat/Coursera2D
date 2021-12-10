@@ -266,9 +266,10 @@ public class Controller : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<PowerUp>())
+        ShootingController controller = transform.GetComponent<ShootingController>();
+        if (collision.GetComponent<PowerUp>() && controller.firesAmount < 9)
         {
-            transform.GetComponent<ShootingController>().firesAmount++;
+            controller.firesAmount++;
             Destroy(collision.gameObject);
         }
     }

@@ -23,6 +23,17 @@ public class Enemy : MonoBehaviour
     [Tooltip("The enemy's gun components")]
     public List<ShootingController> guns = new List<ShootingController>();
 
+    [Header("Drops")]
+    [Tooltip("Chance of rolling a drop")]
+    public float chance;
+
+    [Tooltip("Amount of drops if rolled")]
+    public int dropAmount;
+
+    [Tooltip("Possible drops")]
+    public List<PowerUp> powerUps = new List<PowerUp>();
+
+
     /// <summary>
     /// Enum to help with shooting modes
     /// </summary>
@@ -112,6 +123,7 @@ public class Enemy : MonoBehaviour
     {
         AddToScore();
         IncrementEnemiesDefeated();
+        DropPowerUps();
     }
 
     /// <summary>
@@ -144,6 +156,17 @@ public class Enemy : MonoBehaviour
         {
             GameManager.instance.IncrementEnemiesDefeated();
         }       
+    }
+
+    private void DropPowerUps()
+    {
+        for (int i = 0; i < dropAmount; i++)
+        {
+            if (Random.Range(0.0f, 1f) >= 1f - chance)
+            {
+                Instantiate(powerUps[Random.Range(0, powerUps.Count - 1)], transform.position, transform.rotation);
+            }
+        }
     }
 
     /// <summary>
