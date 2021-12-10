@@ -105,6 +105,10 @@ public class Enemy : MonoBehaviour
         {
             MoveEnemy();
         }
+        if (followTarget != null && Mathf.Abs(followTarget.position.y - transform.position.y) < 1)
+        {
+            DoWorldDestroy();
+        }
         // Attempt to shoot, according to this enemy's shooting mode
         TryToShoot();
     }
@@ -124,6 +128,11 @@ public class Enemy : MonoBehaviour
         AddToScore();
         IncrementEnemiesDefeated();
         DropPowerUps();
+    }
+    public void DoWorldDestroy()
+    {
+        IncrementEnemiesMissed();
+        Destroy(this.gameObject);
     }
 
     /// <summary>
@@ -156,6 +165,14 @@ public class Enemy : MonoBehaviour
         {
             GameManager.instance.IncrementEnemiesDefeated();
         }       
+    }
+
+    private void IncrementEnemiesMissed()
+    {
+        if (GameManager.instance != null && !GameManager.instance.gameIsOver)
+        {
+            GameManager.instance.IncrementEnemiesMissed();
+        }
     }
 
     private void DropPowerUps()

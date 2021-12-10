@@ -48,9 +48,24 @@ public class GameManager : MonoBehaviour
     public bool gameIsWinnable = true;
     [Tooltip("The number of enemies that must be defeated to win the game")]
     public int enemiesToDefeat = 10;
-    
+    [Tooltip("The number of enemies that must be missed to lose the game")]
+    public int enemiesToMiss = 10;
+
     // The number of enemies defeated in game
     private int enemiesDefeated = 0;
+
+    private int _enemiesMissed = 0;
+    public static int enemiesMissed
+    {
+        get
+        {
+            return instance._enemiesMissed;
+        }
+        set
+        {
+            instance._enemiesMissed = value;
+        }
+    }
 
     [Tooltip("Whether or not to print debug statements about whether the game can be won or not according to the game manager's" +
         " search at start up")]
@@ -192,6 +207,16 @@ public class GameManager : MonoBehaviour
         if (enemiesDefeated >= enemiesToDefeat && gameIsWinnable)
         {
             LevelCleared();
+        }
+    }
+
+    public void IncrementEnemiesMissed()
+    {
+        enemiesMissed++;
+        UpdateUIElements();
+        if (enemiesMissed >= enemiesToMiss && gameIsWinnable)
+        {
+            GameOver();
         }
     }
 

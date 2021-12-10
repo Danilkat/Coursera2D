@@ -26,6 +26,12 @@ public class EnemySpawner : MonoBehaviour
     public int maxSpawn = 20;
     [Tooltip("Ignores the max spawn limit if true")]
     public bool spawnInfinite = true;
+    [Tooltip("The amount by which enemies' speed increases. Leave it at 0 if you do not want enemies to speed up")]
+    public float speedDelta = 0f;
+    [Tooltip("The amount by which spawn delay decreases")]
+    public float spawnDelayDelta = 0f;
+
+    private float moveSpeed = 0f;
 
     // The number of enemies that have been spawned
     private int currentlySpawned = 0;
@@ -69,8 +75,11 @@ public class EnemySpawner : MonoBehaviour
             // Determine spawn location
             Vector3 spawnLocation = GetSpawnLocation();
 
+            moveSpeed += speedDelta;
             // Spawn an enemy
             SpawnEnemy(spawnLocation);
+            if (spawnDelay > 1f)
+                spawnDelay -= spawnDelayDelta;
         }
     }
 
@@ -97,6 +106,7 @@ public class EnemySpawner : MonoBehaviour
             if (enemy != null)
             {
                 enemy.followTarget = target;
+                enemy.moveSpeed += Random.Range(enemy.moveSpeed, enemy.moveSpeed + moveSpeed);
             }
             foreach (ShootingController gun in shootingControllers)
             {

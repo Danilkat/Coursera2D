@@ -16,8 +16,14 @@ public class SpawnersManager : MonoBehaviour
     public bool spawnInfinite = true;
     [Tooltip("The time delay between spawning enemies")]
     public float spawnDelay = 2.5f;
+    [Tooltip("The amount by which spawn delay decreases")]
+    public float spawnDelayDelta = 0f;
     [Tooltip("The object to make projectiles child objects of.")]
     public Transform projectileHolder = null;
+    [Tooltip("The amount by which enemies' speed increases. Leave it at 0 if you do not want enemies to speed up")]
+    public float speedDelta = 0f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +42,8 @@ public class SpawnersManager : MonoBehaviour
             spawner.spawnDelay = spawnDelay;
             spawner.projectileHolder = projectileHolder;
             spawner.target = target;
+            spawner.speedDelta = speedDelta;
+            spawner.spawnDelayDelta = spawnDelayDelta;
         }
     }
 }
