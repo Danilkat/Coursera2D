@@ -20,11 +20,14 @@ public class ShootingController : MonoBehaviour
 
     [Header("Firing Settings")]
     [Tooltip("The minimum time between projectiles being fired.")]
-    public float fireRate = 0.05f;
+    public float fireRate = 0.0f;
 
     [Tooltip("The maximum diference between the direction the" +
         " shooting controller is facing and the direction projectiles are launched.")]
-    public float projectileSpread = 1.0f;
+    public float projectileSpread = 0.0f;
+
+    [Tooltip("Amount firing angles")]
+    public uint firesAmount = 0;
 
     // The last time this component was fired
     private float lastFired = Mathf.NegativeInfinity;
@@ -119,7 +122,13 @@ public class ShootingController : MonoBehaviour
         if ((Time.timeSinceLevelLoad - lastFired) > fireRate)
         {
             // Launches a projectile
-            SpawnProjectile();
+            if (firesAmount % 2 != 0)
+                SpawnProjectile(transform.rotation);
+            for (int i = 1; i <= firesAmount/2; i++)
+            {
+                SpawnProjectile(Quaternion.Euler(new Vector3(0, 0, 15*i)));
+                SpawnProjectile(Quaternion.Euler(new Vector3(0, 0, -15*i)));
+            }
 
             if (fireEffect != null)
             {
@@ -139,13 +148,13 @@ public class ShootingController : MonoBehaviour
     /// Returns: 
     /// void (no return)
     /// </summary>
-    public void SpawnProjectile()
+    public void SpawnProjectile(Quaternion rotation)
     {
         // Check that the prefab is valid
         if (projectilePrefab != null)
         {
             // Create the projectile
-            GameObject projectileGameObject = Instantiate(projectilePrefab, transform.position, transform.rotation, null);
+            GameObject projectileGameObject = Instantiate(projectilePrefab, transform.position, rotation, null);
 
             // Account for spread
             Vector3 rotationEulerAngles = projectileGameObject.transform.rotation.eulerAngles;

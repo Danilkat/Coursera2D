@@ -1364,7 +1364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1546764856
 Transform:
   m_ObjectHideFlags: 0
@@ -2346,9 +2346,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5908635484057438040, guid: cdda3f9bc563cef4fb8c831e2219c38a, type: 3}
+      propertyPath: firesAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5908635484057438040, guid: cdda3f9bc563cef4fb8c831e2219c38a, type: 3}
       propertyPath: projectileHolder
       value: 
       objectReference: {fileID: 666184685}
+    - target: {fileID: 5908635484057438040, guid: cdda3f9bc563cef4fb8c831e2219c38a, type: 3}
+      propertyPath: projectileSpread
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5908635484057438042, guid: cdda3f9bc563cef4fb8c831e2219c38a, type: 3}
       propertyPath: m_BodyType
       value: 0

@@ -263,4 +263,13 @@ public class Controller : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<PowerUp>())
+        {
+            transform.GetComponent<ShootingController>().firesAmount++;
+            Destroy(collision.gameObject);
+        }
+    }
 }
